@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS daily_reviews (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    review_date DATE NOT NULL,
+    review TEXT NOT NULL,
+    difficulty INT NOT NULL CHECK (difficulty BETWEEN 1 AND 5),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
