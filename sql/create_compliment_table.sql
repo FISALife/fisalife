@@ -1,0 +1,7 @@
+-- Active: 1769064041338@@118.67.131.22@3306@fisa_life
+USE fisa_life;
+CREATE TABLE compliments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
