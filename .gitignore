@@ -12,6 +12,7 @@ env/
 # Streamlit
 # ===============================
 pages/.streamlit/secrets.toml
+.streamlit/secrets.toml
 pages/.streamlit/config.toml
 
 # ===============================
