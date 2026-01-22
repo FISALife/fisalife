@@ -4,12 +4,22 @@ import sys
 import os
 import re
 from collections import Counter
+import matplotlib.pyplot as plt
+import koreanize_matplotlib
 
 # =========================
 # db.py import 경로 설정
 # =========================
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from db import get_connection
+
+emoji_map = {
+    1: "😀",
+    2: "😄",
+    3: "😅",
+    4: "😰",
+    5: "🤯"
+}
 
 st.set_page_config(
     page_title="오늘의 한 줄 리뷰",
@@ -170,8 +180,6 @@ st.divider()
 # =========================
 # 선택 날짜 리뷰 조회
 # =========================
-st.subheader("📚 선택한 날짜의 리뷰")
-
 conn = get_connection()
 cur = conn.cursor()
 cur.execute(
@@ -186,20 +194,64 @@ cur.execute(
 filtered_rows = cur.fetchall()
 conn.close()
 
-emoji_map = {
-    1: "😀",
-    2: "😄",
-    3: "😅",
-    4: "😰",
-    5: "🤯"
-}
+st.subheader("📚 선택한 날짜의 리뷰")
 
-if filtered_rows:
-    for date, review, diff in filtered_rows:
-        with st.container():
-            st.markdown(f"**📅 {date} | 난이도 {emoji_map[diff]}**")
-            st.write(review)
-            st.divider()
-else:
-    st.info("선택한 날짜에 작성된 리뷰가 없어요.")
+left_col, right_col = st.columns([6, 4])
 
+# =========================
+# 왼쪽: 리뷰 목록 (6)
+# =========================
+with left_col:
+    if filtered_rows:
+        for date, review, diff in filtered_rows:
+            with st.container():
+                st.markdown(f"**📅 {date} | 난이도 {emoji_map[diff]}**")
+                st.write(review)
+                st.divider()
+    else:
+        st.info("선택한 날짜에 작성된 리뷰가 없어요.")
+
+# =========================
+# 오른쪽: 난이도 파이그래프 (4)
+# =========================
+with right_col:
+    st.markdown("### 수업 난이도 분포")
+
+    if filtered_rows:
+        difficulties = [row[2] for row in filtered_rows]
+        diff_counter = Counter(difficulties)
+
+        colors_map = {
+            1: "#B8E1DD",  # 민트
+            2: "#C7D8F2",  # 블루
+            3: "#FFF1A8",  # 옐로우
+            4: "#FFD6A5",  # 오렌지
+            5: "#FFADAD"   # 레드
+        }
+
+        labels_map = {
+            1: "쉬움",
+            2: "보통",
+            3: "약간 어려움",
+            4: "어려움",
+            5: "매우 어려움"
+        }
+
+        labels = [labels_map[k] for k in diff_counter.keys()]
+        sizes = diff_counter.values()
+        colors = [colors_map[k] for k in diff_counter.keys()]
+
+        fig, ax = plt.subplots(figsize=(4, 4))
+        ax.pie(
+            sizes,
+            labels=labels,
+            colors=colors,
+            autopct="%1.0f%%",
+            startangle=90,
+            wedgeprops={"edgecolor": "white", "linewidth": 1.5}
+        )
+        ax.axis("equal")
+
+        st.pyplot(fig)
+    else:
+        st.info("그래프를 표시할 데이터가 없어요.")
