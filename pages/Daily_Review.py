@@ -195,6 +195,8 @@ filtered_rows = cur.fetchall()
 conn.close()
 
 st.subheader("📚 선택한 날짜의 리뷰")
+st.markdown("> 📝 학습일지가 밀려 뭘 배웠는지 기억이 안 나나요? 친구들이 남긴 한 줄 리뷰로 회고해 보세요!")
+st.markdown(" ")
 
 left_col, right_col = st.columns([6, 4])
 
