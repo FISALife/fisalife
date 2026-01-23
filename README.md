@@ -1,4 +1,4 @@
-🚀 우리 슬기로운 FISA 생활 (WOORI Wise FISA Life)
+# 🚀 우리 슬기로운 FISA 생활 (WOORI Wise FISA Life)
 
 **“우리의 6개월이 건강하고 스마트할 수 있도록,  
 데이터로 완성하는 FISA 전용 라이프 케어 플랫폼”**
@@ -59,8 +59,7 @@
 ### 기대 효과
 - 수업 복습 전 빠른 회고 가능
 - 학습일지가 밀렸을 때 기록 보조 역할 수행
-<img width="800" height="658" alt="image" src="https://github.com/user-attachments/assets/cd5d3c73-4bc7-49c3-be7d-ff1f50cb869c" />
-
+![데일리리뷰](https://github.com/user-attachments/assets/da57da13-ded7-41a0-9588-887c17359418)
 ---
 
 ## 3. 환기 요정
@@ -96,6 +95,7 @@
 ### 기대 효과
 - 좌석 배정에 대한 불필요한 갈등 감소
 - 좌석 특성 데이터 축적 및 공유
+![자리뽑기 화면녹화](https://github.com/user-attachments/assets/3c2d13e8-cce8-43a1-96c3-057173e395f8)
 
 ---
 
