@@ -92,7 +92,7 @@ conn.close()
 # =========================
 def normalize_korean_token(token):
     endings = [
-        "하는", "했다", "하였다", "해서", "하여", "하고"
+        "하는", "했다", "하였다", "해서", "하여", "하고",
         "되는", "되었다", "배웠다", "배우는",
         "사용하는", "활용하는",
         "이다", "였다",
@@ -104,8 +104,14 @@ def normalize_korean_token(token):
             return token[:-len(end)]
     return token
 
+
 def extract_keywords(texts, top_n=5):
-    stopwords = {"오늘", "오늘은", "수업", "정말", "너무", "조금", "같다", "것", "방법", "등"}
+    stopwords = {
+        "오늘", "오늘은", "수업", "정말", "너무", "조금",
+        "같다", "것", "방법", "등", "등의",
+        "하고", "및", "또", "또는", "그리고"
+    }
+
     words = []
 
     for text in texts:
