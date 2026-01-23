@@ -174,7 +174,7 @@ st.markdown(
     """
     <div style="text-align:center; font-size:17px; color:#666; line-height:1.8;">
         각 기능의 자세한 사용 방법은  
-        <a href="?page=FAQ" style="
+        <a href="FAQ" style="
             font-weight:700;
             color:#4A6CF7;
             text-decoration:none;
