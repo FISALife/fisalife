@@ -7,6 +7,9 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from db import get_connection
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FONT_PATH = os.path.join(BASE_DIR, "assets", "NanumGothic-Bold.ttf")
+
 st.set_page_config(
     page_title="복복복 칭찬 감옥",
     layout="centered"
@@ -50,11 +53,11 @@ if compliments:
     text = " ".join(compliments)
 
     wc = WordCloud(
-        font_path="/System/Library/Fonts/AppleSDGothicNeo.ttc",  # mac 기준
-        background_color="white",
-        width=800,
-        height=400
-    ).generate(text)
+    font_path=FONT_PATH,
+    background_color="white",
+    width=800,
+    height=400
+).generate(text)
 
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.imshow(wc)
