@@ -4,6 +4,7 @@ import requests
 import json
 import plotly.graph_objects as go
 from datetime import datetime
+import pytz  # 1. 타임존 라이브러리 임포트
 from dotenv import load_dotenv
 
 # .env 파일 로드
@@ -260,9 +261,13 @@ def draw_thin_gradient_bar(pm10_value, pm25_value):
 # --- 메인 화면 ---
 st.title("🌬️ FISA 환기 요정")
 
-time_placeholder = st.empty()
-time_placeholder.markdown(f"**현재 시각:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+# 2. 한국 타임존 설정 및 현재 시각 구하기
+korea_tz = pytz.timezone('Asia/Seoul')
+now_korea = datetime.now(korea_tz)
 
+time_placeholder = st.empty()
+# 3. 포맷팅하여 출력
+time_placeholder.markdown(f"**현재 시각:** {now_korea.strftime('%Y-%m-%d %H:%M:%S')}")
 
 # 데이터 로드
 t, p10, p25 = get_realtime_data()
