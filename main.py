@@ -31,15 +31,11 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown("<br><br>", unsafe_allow_html=True)
-
 # =========================
 # 위비프렌즈 사진
 # =========================
 
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    st.image("assets/wibee_friends.png", use_container_width=True)
+st.image("assets/wibee_friends.png", width='stretch')
 
 # =========================
 # 서비스 카드 영역
