@@ -2,7 +2,7 @@ import streamlit as st
 from PIL import Image
 
 st.set_page_config(
-    page_title="슬기로운 우리 FISA 생활",
+    page_title="우리 슬기로운 FISA 생활",
     page_icon="🏫",
     layout="wide",
 )
@@ -32,6 +32,14 @@ st.markdown(
 )
 
 st.markdown("<br><br>", unsafe_allow_html=True)
+
+# =========================
+# 위비프렌즈 사진
+# =========================
+
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image("assets/wibee_friends.png", use_container_width=True)
 
 # =========================
 # 서비스 카드 영역
