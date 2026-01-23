@@ -33,13 +33,10 @@ st.title("📘 오늘의 수업을 요약해주세요")
 # =========================
 with st.form(key="daily_review_form", clear_on_submit=True):
 
-    review_date = st.date_input(
-        "📅 수업 날짜",
-        value=datetime.date.today()
-    )
+    review_date = st.date_input("📅 수업 날짜", value=datetime.date.today())
 
     review_text = st.text_area(
-        "✍️ 오늘 수업에 대한 한 줄 요약",
+        "✍️ 오늘 수업 한 줄 요약",
         max_chars=200,
         placeholder="오늘은 SQL JOIN과 Streamlit 멀티페이지 구조를 배웠다."
     )
@@ -48,7 +45,7 @@ with st.form(key="daily_review_form", clear_on_submit=True):
         "😄 오늘의 난이도",
         options=[1, 2, 3, 4, 5],
         format_func=lambda x: ["😀 쉬움", "😄 보통", "😅 약간 어려움", "😰 어려움", "🤯 매우 어려움"][x-1],
-        horizontal=True 
+        horizontal=True
     )
 
     submitted = st.form_submit_button("제출")
@@ -66,9 +63,7 @@ with st.form(key="daily_review_form", clear_on_submit=True):
                 """,
                 (review_date, review_text, difficulty)
             )
-            conn.commit()
             conn.close()
-
             st.success("오늘의 리뷰가 저장되었습니다 ✨")
 
 st.divider()
@@ -77,7 +72,6 @@ st.divider()
 # 날짜별 리뷰 조회
 # =========================
 st.subheader("📅 지난 수업 리뷰 조회")
-
 selected_date = st.date_input("조회할 날짜 선택")
 
 conn = get_connection()
@@ -94,91 +88,47 @@ rows = cur.fetchall()
 conn.close()
 
 # =========================
-# 키워드 추출 함수
+# 키워드 추출
 # =========================
 def normalize_korean_token(token):
-    # 자주 나오는 어미/조사 패턴
     endings = [
         "하는", "했다", "하였다", "해서", "하여",
         "되는", "되었다", "배웠다", "배우는",
         "사용하는", "활용하는",
-        "이다", "였다", "였다",
+        "이다", "였다",
         "에서", "으로", "에게",
         "을", "를", "은", "는", "이", "가"
     ]
-
     for end in endings:
         if token.endswith(end):
-            token = token[:-len(end)]
-            break
-
-    return token
-
-def clean_token(token):
-    # 자주 붙는 조사/어미 제거
-    suffixes = [
-        "을", "를", "이", "가", "은", "는", "에서", "으로",
-        "하다", "하는", "했다", "배웠다", "방법", "등의"
-    ]
-    for suf in suffixes:
-        if token.endswith(suf):
-            token = token.replace(suf, "")
+            return token[:-len(end)]
     return token
 
 def extract_keywords(texts, top_n=5):
-    stopwords = {
-        "오늘", "오늘은", "수업", "정말", "너무",
-        "조금", "같다", "것", "방법", "등"
-    }
-
+    stopwords = {"오늘", "오늘은", "수업", "정말", "너무", "조금", "같다", "것", "방법", "등"}
     words = []
 
     for text in texts:
         cleaned = re.sub(r"[^가-힣a-zA-Z ]", "", text)
-        tokens = cleaned.split()
-
-        for token in tokens:
+        for token in cleaned.split():
             token = normalize_korean_token(token)
-
-            if (
-                len(token) >= 2
-                and len(token) <= 6
-                and token not in stopwords
-            ):
+            if 2 <= len(token) <= 6 and token not in stopwords:
                 words.append(token)
 
-    counter = Counter(words)
-    return [word for word, _ in counter.most_common(top_n)]
+    return [w for w, _ in Counter(words).most_common(top_n)]
 
-
-# =========================
-# 날짜별 키워드 출력
-# =========================
 st.subheader("🔑 주요 키워드")
 
 if rows:
-    texts = [r[0] for r in rows]
-    keywords = extract_keywords(texts, top_n=5)
-
-    month = selected_date.month
-    day = selected_date.day
-
-    if keywords:
-        st.markdown(
-            f"""
-            ### #{month}월 {day}일의 주요 키워드  
-            {'  '.join(keywords)}
-            """
-        )
-    else:
-        st.info("키워드를 추출할 수 없어요.")
+    keywords = extract_keywords([r["review"] for r in rows])
+    st.markdown(f"### #{selected_date.month}월 {selected_date.day}일의 주요 키워드  \n{'  '.join(keywords)}")
 else:
     st.info("해당 날짜에 작성된 리뷰가 없어요.")
-    
+
 st.divider()
 
 # =========================
-# 선택 날짜 리뷰 조회
+# 선택 날짜 리뷰 + 그래프
 # =========================
 conn = get_connection()
 cur = conn.cursor()
@@ -195,65 +145,35 @@ filtered_rows = cur.fetchall()
 conn.close()
 
 st.subheader("📚 선택한 날짜의 리뷰")
-st.markdown("> 📝 학습일지가 밀려 뭘 배웠는지 기억이 안 나나요? 친구들이 남긴 한 줄 리뷰로 회고해 보세요!")
-st.markdown(" ")
+left, right = st.columns([6, 4])
 
-left_col, right_col = st.columns([6, 4])
-
-# =========================
-# 왼쪽: 리뷰 목록 (6)
-# =========================
-with left_col:
+with left:
     if filtered_rows:
-        for date, review, diff in filtered_rows:
-            with st.container():
-                st.markdown(f"**📅 {date} | 난이도 {emoji_map[diff]}**")
-                st.write(review)
-                st.divider()
+        for r in filtered_rows:
+            st.markdown(f"**📅 {r['review_date']} | 난이도 {emoji_map[r['difficulty']]}**")
+            st.write(r["review"])
+            st.divider()
     else:
-        st.info("선택한 날짜에 작성된 리뷰가 없어요.")
+        st.info("리뷰가 없어요.")
 
-# =========================
-# 오른쪽: 난이도 파이그래프 (4)
-# =========================
-with right_col:
+with right:
     st.markdown("### 수업 난이도 분포")
-
     if filtered_rows:
-        difficulties = [row[2] for row in filtered_rows]
-        diff_counter = Counter(difficulties)
+        diff_counter = Counter([r["difficulty"] for r in filtered_rows])
 
-        colors_map = {
-            1: "#B8E1DD",  # 민트
-            2: "#C7D8F2",  # 블루
-            3: "#FFF1A8",  # 옐로우
-            4: "#FFD6A5",  # 오렌지
-            5: "#FFADAD"   # 레드
-        }
+        labels_map = {1:"쉬움",2:"보통",3:"약간 어려움",4:"어려움",5:"매우 어려움"}
+        colors_map = {1:"#B8E1DD",2:"#C7D8F2",3:"#FFF1A8",4:"#FFD6A5",5:"#FFADAD"}
 
-        labels_map = {
-            1: "쉬움",
-            2: "보통",
-            3: "약간 어려움",
-            4: "어려움",
-            5: "매우 어려움"
-        }
+        labels, sizes, colors = [], [], []
+        for k in sorted(diff_counter):
+            labels.append(labels_map[k])
+            sizes.append(diff_counter[k])
+            colors.append(colors_map[k])
 
-        labels = [labels_map[k] for k in diff_counter.keys()]
-        sizes = diff_counter.values()
-        colors = [colors_map[k] for k in diff_counter.keys()]
-
-        fig, ax = plt.subplots(figsize=(4, 4))
-        ax.pie(
-            sizes,
-            labels=labels,
-            colors=colors,
-            autopct="%1.0f%%",
-            startangle=90,
-            wedgeprops={"edgecolor": "white", "linewidth": 1.5}
-        )
+        fig, ax = plt.subplots(figsize=(4,4))
+        ax.pie(sizes, labels=labels, colors=colors, autopct="%1.0f%%", startangle=90)
         ax.axis("equal")
-
         st.pyplot(fig)
+        plt.close(fig)
     else:
         st.info("그래프를 표시할 데이터가 없어요.")
