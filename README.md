@@ -25,7 +25,7 @@
 | <img src="https://github.com/user-attachments/assets/9cb5e47a-45f3-4347-a95f-4d1712cdb518" width="150" /> | <img src="https://github.com/user-attachments/assets/05fa5950-f4ec-474a-b9b1-773e261172ff" width="150" /> | <img src="https://github.com/user-attachments/assets/66812f13-4fa0-445f-9b31-f3831b336cac" width="150" /> | <img src="https://github.com/user-attachments/assets/1ff84ca0-981f-4495-834c-4274e3208640" width="150" /> |
 | --- | --- | --- | --- |
 | 강수아  `@sua00` | 채윤지 @Hayden-yoonji | 김지연 `@JiyeonKim017` | 안유민 `@DEVELOPERYUMIN` |
-| 홈, 오늘의 리뷰, 복복복, FAQ, 배포 |  | 환기요정 | 좌석 랜덤 배치, 집단지성 페이지 구성  |
+| 홈, 오늘의 리뷰, 복복복, <br> FAQ, 배포 | 카페인 계산기, <br> 음료 데이터베이스 구축 | 환기요정, <br> 로고 디자인 | 좌석 랜덤 배치, <br> 집단지성 페이지 구성  |
 
 
 ## 프로젝트 상세 설명
