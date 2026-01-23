@@ -1,4 +1,4 @@
-# 🚀 우리 슬기로운 FISA 생활 (WOORI Wise FISA Life)
+![환기요정 화면녹화](https://github.com/user-attachments/assets/be8c59d6-eab5-40ce-bf1c-98f7ed517a32)# 🚀 우리 슬기로운 FISA 생활 (WOORI Wise FISA Life)
 
 **“우리의 6개월이 건강하고 스마트할 수 있도록,  
 데이터로 완성하는 FISA 전용 라이프 케어 플랫폼”**
@@ -23,6 +23,7 @@
 > 🍀 “오늘은 코드보다 토닥임 한마디가 더 필요해”
 
 👉 **[서비스 바로가기](https://fisalife.streamlit.app/)**
+
 
 ---
 
@@ -75,6 +76,8 @@
 - 수치 해석 부담 없이 빠른 의사결정
 - 데이터 기반 환기로 실내 환경 개선
 - 눈치 보지 않는 환기 요청 문화 형성
+
+![환기요정 화면녹화](https://github.com/user-attachments/assets/a1f34186-a56c-4f27-ac1e-a748f8fcd91e)
 
 ---
 
