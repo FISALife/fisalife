@@ -169,11 +169,19 @@ st.markdown("<br><br>", unsafe_allow_html=True)
 # =========================
 # FAQ 안내
 # =========================
+
 st.markdown(
     """
-    <div style="text-align:center; font-size:17px; color:#666;">
+    <div style="text-align:center; font-size:17px; color:#666; line-height:1.8;">
         각 기능의 자세한 사용 방법은  
-        <b>FAQ 게시판</b>에서 확인하실 수 있습니다 📌<br><br>
+        <a href="?page=FAQ" style="
+            font-weight:700;
+            color:#4A6CF7;
+            text-decoration:none;
+        ">
+            FAQ 게시판
+        </a>
+        에서 확인하실 수 있습니다 📌<br><br>
         <b>왼쪽 사이드바에서 원하는 기능을 선택해주세요</b> 👈
     </div>
     """,
