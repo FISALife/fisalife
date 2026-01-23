@@ -1,4 +1,4 @@
-![환기요정 화면녹화](https://github.com/user-attachments/assets/be8c59d6-eab5-40ce-bf1c-98f7ed517a32)# 🚀 우리 슬기로운 FISA 생활 (WOORI Wise FISA Life)
+🚀 우리 슬기로운 FISA 생활 (WOORI Wise FISA Life)
 
 **“우리의 6개월이 건강하고 스마트할 수 있도록,  
 데이터로 완성하는 FISA 전용 라이프 케어 플랫폼”**
@@ -129,6 +129,7 @@
 - 정보 손실 방지
 - 집단 지식의 지속적 축적
 - 프로젝트·학습 시 빠른 레퍼런스 접근
+![집단지성 화면녹화](https://github.com/user-attachments/assets/ffb67237-949c-4a3c-8ce6-aacb9b219ac3)
 
 ---
 
