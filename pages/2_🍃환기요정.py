@@ -259,7 +259,10 @@ def draw_thin_gradient_bar(pm10_value, pm25_value):
 
 # --- 메인 화면 ---
 st.title("🌬️ FISA 환기 요정")
-st.markdown(f"**현재 시각:** {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+
+time_placeholder = st.empty()
+time_placeholder.markdown(f"**현재 시각:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
 
 # 데이터 로드
 t, p10, p25 = get_realtime_data()
