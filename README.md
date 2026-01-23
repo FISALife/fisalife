@@ -42,6 +42,7 @@
 서비스의 첫 진입 화면으로,  
 각 하위 기능에 대한 **간단한 설명과 안내**를 제공하여  
 사용자가 원하는 기능으로 빠르게 이동할 수 있도록 구성했습니다.
+<img width="1375" height="947" alt="image" src="https://github.com/user-attachments/assets/3c4115df-136a-4494-9d52-d6c4e4c20f21" />
 
 ---
 
@@ -58,6 +59,7 @@
 ### 기대 효과
 - 수업 복습 전 빠른 회고 가능
 - 학습일지가 밀렸을 때 기록 보조 역할 수행
+<img width="800" height="658" alt="image" src="https://github.com/user-attachments/assets/cd5d3c73-4bc7-49c3-be7d-ff1f50cb869c" />
 
 ---
 
@@ -147,6 +149,7 @@
 ### 기대 효과
 - 학습 스트레스 완화
 - 따뜻한 학습 분위기 조성
+  
 ![제목 없는 디자인 (1)](https://github.com/user-attachments/assets/0a507a80-e3fe-4269-9dcb-665aea72976d)
 
 ---
@@ -155,6 +158,7 @@
 
 각 기능의 사용 방법과 데이터 출처를 정리하여  
 서비스 이해를 돕는 가이드 페이지입니다.
+<img width="985" height="764" alt="image" src="https://github.com/user-attachments/assets/da2eeca5-dcef-4d3b-892d-5e9141e7105d" />
 
 ---
 
@@ -184,7 +188,7 @@
 ## 🌱 발전 계획
 
 - 장기적으로는 FISA 외에도 **다른 교육 환경에서도 활용 가능한 범용 플랫폼**으로 확장 가능성 검토
-- 
+
 
 ---
 
