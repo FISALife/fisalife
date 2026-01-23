@@ -64,6 +64,7 @@ st.markdown(
 
 row1_col1, row1_col2 = st.columns(2)
 row2_col1, row2_col2 = st.columns(2)
+row3_col1, row3_col2 = st.columns(2) 
 
 with row1_col1:
     st.markdown(
@@ -123,6 +124,40 @@ with row2_col2:
                 <b>익명으로 칭찬과 응원의 메시지</b>를 보낼 수 있는 공간입니다.<br><br>
                 말 한마디가 힘이 되는 순간,<br>
                 복복복으로 마음을 전해보세요.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+with row3_col1:
+    st.markdown(
+        """
+        <div class="service-card">
+            <div class="service-title">🎲 랜덤 자리 뽑기</div>
+            <div class="service-desc">
+                2주에 한 번씩 바뀌는 우리 교실 좌석표에서<br>
+                <b>랜덤으로 자리를 뽑을 수 있는 기능</b>입니다.<br><br>
+                각 자리마다 남겨진 후기를 통해<br>
+                어떤 자리인지 미리 확인하고,<br>
+                조금 더 설레는 마음으로 자리를 바꿔보세요.
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+with row3_col2:
+    st.markdown(
+        """
+        <div class="service-card">
+            <div class="service-title">💡 유용한 사이트 모음</div>
+            <div class="service-desc">
+                공부하다 보면 매번 다시 찾게 되는 사이트들이 있죠.<br>
+                이 페이지는 <b>FISA 과정 중 자주 사용하는 유용한 사이트들을</b><br>
+                한 곳에 모아둔 공간입니다 📚<br><br>
+                필요할 때마다 꺼내 쓰고,<br>
+                공부 흐름이 끊기지 않도록 도와드릴게요.
             </div>
         </div>
         """,
