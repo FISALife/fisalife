@@ -151,7 +151,7 @@ with row3_col2:
     st.markdown(
         """
         <div class="service-card">
-            <div class="service-title">💡 유용한 사이트 모음</div>
+            <div class="service-title">💡 집단 지성</div>
             <div class="service-desc">
                 공부하다 보면 매번 다시 찾게 되는 사이트들이 있죠.<br>
                 이 페이지는 <b>FISA 과정 중 자주 사용하는 유용한 사이트들을</b><br>
