@@ -469,14 +469,14 @@ if not rows:
 else:
     seat_map = fetch_assignments_map()
 
-    # ✅ 위치 고정: 왼쪽=1분단, 오른쪽=2분단
+    # 위치 고정: 왼쪽=1분단, 오른쪽=2분단
     left, right = st.columns([1, 1], gap="large")
 
     with left:
         render_section("2분단", start_row=5, end_row=9, cols=4, seat_map=seat_map)
 
     with right:
-        render_section("1분단", start_row=1, end_row=4, cols=4, seat_map=seat_map)
+        render_section("1분단 / 사물함 쪽", start_row=1, end_row=4, cols=4, seat_map=seat_map)
 
 
 # ===========================
