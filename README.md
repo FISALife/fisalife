@@ -164,12 +164,12 @@
 
 ## 🛠 기술 스택
 
-- Python
-- Streamlit
-- SQL / MySQL
-- Pandas
-- Plotly
-- CSS
+![Python](https://img.shields.io/badge/Python-blue?logo=python)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql)
+![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas)
+![Plotly](https://img.shields.io/badge/Plotly-3F4F75?logo=plotly)
+![CSS](https://img.shields.io/badge/CSS-1572B6?logo=css3)
 - 정규식 기반 URL 유효성 검사
 
 ---
