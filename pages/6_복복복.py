@@ -1,6 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import streamlit as st
 import random
 from wordcloud import WordCloud
@@ -26,7 +27,7 @@ def fetch_compliments():
     cur.execute("SELECT message FROM compliments")
     rows = cur.fetchall()
     conn.close()
-    return [r[0] for r in rows]
+    return [r["message"] for r in rows]   # ✅ 핵심 수정
 
 # =========================
 # 랜덤 칭찬
@@ -53,16 +54,17 @@ if compliments:
     text = " ".join(compliments)
 
     wc = WordCloud(
-    font_path=FONT_PATH,
-    background_color="white",
-    width=800,
-    height=400
-).generate(text)
+        font_path=FONT_PATH,
+        background_color="white",
+        width=800,
+        height=400
+    ).generate(text)
 
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.imshow(wc)
     ax.axis("off")
     st.pyplot(fig)
+    plt.close(fig)
 else:
     st.info("아직 칭찬 데이터가 없어요!")
 
@@ -91,7 +93,5 @@ with st.form(key="compliment_form", clear_on_submit=True):
                 "INSERT INTO compliments (message) VALUES (%s)",
                 (message,)
             )
-            conn.commit()
             conn.close()
-
             st.success("칭찬이 성공적으로 저장됐어요 💙")
