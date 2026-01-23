@@ -10,11 +10,11 @@ st.set_page_config(page_title="랜덤 자리배정", page_icon="🎲", layout="w
 # ---------------
 # DB 설정 로드
 # ---------------
-"""
-MySQL 접속 정보를 로드하는 함수
-1. Streamlit secrets (st.secrets) 우선 사용
-2. 없으면 pages/.streamlit/secrets.toml 직접 로드
-"""
+
+#MySQL 접속 정보를 로드하는 함수
+#1. Streamlit secrets (st.secrets) 우선 사용
+#2. 없으면 pages/.streamlit/secrets.toml 직접 로드
+
 def load_mysql_cfg():
 
     # 1) Streamlit Cloud 또는 로컬 secrets 사용 시
