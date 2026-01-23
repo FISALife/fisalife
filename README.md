@@ -111,6 +111,7 @@
 ### 기대 효과
 - 무의식적인 카페인 과다 섭취 방지
 - 건강한 음료 섭취 습관 형성
+![제목 없는 디자인](https://github.com/user-attachments/assets/3e2b9298-3570-4a99-ad69-f04c46ecd46d)
 
 ---
 
@@ -146,6 +147,7 @@
 ### 기대 효과
 - 학습 스트레스 완화
 - 따뜻한 학습 분위기 조성
+![제목 없는 디자인 (1)](https://github.com/user-attachments/assets/0a507a80-e3fe-4269-9dcb-665aea72976d)
 
 ---
 
