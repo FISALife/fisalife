@@ -8,9 +8,9 @@ st.markdown("---")
 # =========================
 # calcaffeine
 # =========================
-st.subheader("☕️ calcaffeine")
+st.subheader("🥤 calcaffeine")
 
-with st.expander("☕ calcaffeine은 어떤 서비스인가요?"):
+with st.expander("🥤 calcaffeine은 어떤 서비스인가요?"):
     st.write("""
     **calcaffeine**은 하루 동안 마신 음료를 입력하면  
     내가 섭취한 **총 카페인 양을 계산**해주는 서비스입니다.
@@ -19,7 +19,7 @@ with st.expander("☕ calcaffeine은 어떤 서비스인가요?"):
     건강한 수업 루틴을 돕는 것을 목표로 합니다.
     """)
 
-with st.expander("☕ 카페인 수치는 어디서 가져오나요?"):
+with st.expander("🥤 카페인 수치는 어디서 가져오나요?"):
     st.write("""
     카페인 함량 정보는  
     **2025년 4월 23일 소셜타임즈 기사**를 참고했습니다.
@@ -27,7 +27,7 @@ with st.expander("☕ 카페인 수치는 어디서 가져오나요?"):
     https://www.esocialtimes.com/news/articleView.html?idxno=39860
     """)
 
-with st.expander("☕ 어떤 음료를 계산할 수 있나요?"):
+with st.expander("🥤 어떤 음료를 계산할 수 있나요?"):
     st.write("""
     현재 측정 가능한 음료는 다음과 같습니다.
     
@@ -40,7 +40,7 @@ with st.expander("☕ 어떤 음료를 계산할 수 있나요?"):
     - 몬스터
     """)
 
-with st.expander("☕ 적정 카페인 기준은 무엇인가요?"):
+with st.expander("🥤 적정 카페인 기준은 무엇인가요?"):
     st.write("""
     적정 카페인 기준은  
     **식약처 보도자료 기준 성인 1일 권장 섭취량**을 참고했습니다.
