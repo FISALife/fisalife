@@ -9,7 +9,7 @@ import pymysql
 # ===========================
 st.set_page_config(page_title="랜덤 자리배정", page_icon="🎲", layout="wide")
 
-# ===========================
+# ===========================3_🎲랜덤자리뽑기
 # DB 설정 로드
 # ===========================
 def load_mysql_cfg():
@@ -394,6 +394,31 @@ else:
 # ===========================
 st.divider()
 st.subheader("⭐ 좌석 리뷰")
+
+st.write("RUNNING:", __file__)
+try:
+    conn = get_conn()
+    with conn.cursor() as cur:
+        cur.execute("SELECT DATABASE() AS db, @@hostname AS host, @@version AS ver;")
+        st.write(cur.fetchone())
+
+        q = """
+            SELECT se.seat_code,
+                   AVG(r.rating) AS avg_rating,
+                   COUNT(r.review_id) AS cnt
+            FROM seats se
+            LEFT JOIN seat_reviews r ON r.seat_id = se.seat_id
+            GROUP BY se.seat_code;
+        """
+        cur.execute(q)
+        st.write("AVG QUERY OK:", len(cur.fetchall()))
+    conn.close()
+except Exception as e:
+    st.error("DEBUG QUERY FAILED")
+    st.exception(e)
+    st.stop()
+
+
 
 try:
     avg_map = fetch_avg_rating_map()
