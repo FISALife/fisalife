@@ -386,23 +386,103 @@ def insert_review(assignment_id: int, rating: int, comment: str):
 # 좌석 코드 → assignment_id 조회
 # ===========================
 
-def fetch_assignment_id_by_seat_code(seat_code: str):
+def fetch_seat_id_by_seat_code(seat_code: str):
+    """seat_code -> seat_id"""
+    conn = get_conn()
+    with conn.cursor() as cur:
+        cur.execute("SELECT seat_id FROM seats WHERE seat_code=%s LIMIT 1;", (seat_code,))
+        row = cur.fetchone()
+    conn.close()
+    return None if not row else row["seat_id"]
+
+
+def insert_review_by_seat(seat_code: str, rating: int, comment: str):
     """
-    현재 해당 좌석에 배정된 assignment_id 반환
-    - 아직 배정이 없으면 None
+    배정 여부와 상관없이 seat_code 기반으로 리뷰 저장
+    """
+    seat_id = fetch_seat_id_by_seat_code(seat_code)
+    if seat_id is None:
+        raise ValueError(f"존재하지 않는 좌석 코드: {seat_code}")
+
+    conn = get_conn()
+    with conn.cursor() as cur:
+        cur.execute("""
+            INSERT INTO seat_reviews (seat_id, rating, comment)
+            VALUES (%s, %s, %s);
+        """, (seat_id, rating, comment))
+    conn.close()
+
+
+def fetch_all_reviews_for_seat(seat_code: str):
+    """
+    특정 좌석의 모든 리뷰를 최신순 조회
     """
     conn = get_conn()
     with conn.cursor() as cur:
         cur.execute("""
-            SELECT a.assignment_id
-            FROM seat_assignments a
-            JOIN seats se ON se.seat_id = a.seat_id
+            SELECT r.rating, r.comment, r.created_at
+            FROM seat_reviews r
+            JOIN seats se ON se.seat_id = r.seat_id
             WHERE se.seat_code = %s
-            LIMIT 1;
+            ORDER BY r.created_at DESC;
         """, (seat_code,))
-        row = cur.fetchone()
+        rows = cur.fetchall()
     conn.close()
-    return None if not row else row["assignment_id"]
+    return rows
+
+
+def fetch_avg_rating_map():
+    """
+    seat_code -> (평균 별점, 리뷰 개수)
+    """
+    conn = get_conn()
+    with conn.cursor() as cur:
+        cur.execute("""
+            SELECT se.seat_code,
+                   AVG(r.rating) AS avg_rating,
+                   COUNT(r.review_id) AS cnt
+            FROM seats se
+            LEFT JOIN seat_reviews r ON r.seat_id = se.seat_id
+            GROUP BY se.seat_code;
+        """)
+        rows = cur.fetchall()
+    conn.close()
+    return {
+        r["seat_code"]: (
+            float(r["avg_rating"]) if r["avg_rating"] is not None else None,
+            int(r["cnt"])
+        )
+        for r in rows
+    }
+
+
+def fetch_recent_reviews_tooltip_map(limit_per_seat: int = 3):
+    """
+    seat_code -> tooltip_text (최근 리뷰 몇 개)
+    """
+    conn = get_conn()
+    with conn.cursor() as cur:
+        cur.execute("""
+            SELECT se.seat_code, r.rating, r.comment, r.created_at
+            FROM seat_reviews r
+            JOIN seats se ON se.seat_id = r.seat_id
+            ORDER BY se.seat_code, r.created_at DESC;
+        """)
+        rows = cur.fetchall()
+    conn.close()
+
+    tooltips = {}
+    counts = {}
+    for r in rows:
+        sc = r["seat_code"]
+        counts.setdefault(sc, 0)
+        if counts[sc] >= limit_per_seat:
+            continue
+        counts[sc] += 1
+        tooltips.setdefault(sc, [])
+        tooltips[sc].append(f"• {int(r['rating'])}점: {r['comment']}")
+
+    return {sc: "\n".join(lines) for sc, lines in tooltips.items()}
 
 
 # ---------------------------
@@ -529,25 +609,35 @@ with right:
     else:
         st.success(f"선택 좌석: {sel}")
 
-        assignment_id = fetch_assignment_id_by_seat_code(sel)
-        if assignment_id is None:
-            st.error("이 좌석은 현재 배정 정보가 없어서 리뷰를 저장할 수 없어요. (랜덤 배정 먼저!)")
-        else:
-            rating = st.slider("별점", 1, 5, 5, 1, key="review_rating_by_seat")
-            comment = st.text_area(
-                "한줄평",
-                placeholder="예) 집중 잘 됨 / 꿀잠 가능 / 건조함 ...",
-                max_chars=200,
-                key="review_comment_by_seat"
-            )
+        with right:
+            st.markdown("### ✍️ 리뷰 작성")
 
-            if st.button("💾 리뷰 저장", use_container_width=True, key="review_save_by_seat"):
-                if not comment.strip():
-                    st.warning("한줄평을 입력해줘!")
-                else:
-                    insert_review(assignment_id, rating, comment.strip())
-                    st.success("저장 완료! (리뷰는 누적됩니다)")
-                    st.rerun()
+            sel = st.session_state.get("selected_seat")
+            if not sel:
+                st.info("위 좌석표에서 먼저 좌석을 선택해주세요!")
+            else:
+                st.success(f"선택 좌석: {sel}")
+
+                rating = st.slider("별점", 1, 5, 5, 1, key="review_rating_by_seat")
+                comment = st.text_area(
+                    "한줄평",
+                    placeholder="예) 집중 잘 됨 / 꿀잠 가능 / 건조함 ...",
+                    max_chars=200,
+                    key="review_comment_by_seat"
+                )
+
+                if st.button("💾 리뷰 저장", use_container_width=True, key="review_save_by_seat"):
+                    if not comment.strip():
+                        st.warning("한줄평을 입력해줘!")
+                    else:
+                        try:
+                            insert_review_by_seat(sel, rating, comment.strip())
+                            st.success("저장 완료! (리뷰는 누적됩니다)")
+                            st.rerun()
+                        except Exception as e:
+                            st.error("리뷰 저장 실패")
+                            st.exception(e)
+
 
 
 
