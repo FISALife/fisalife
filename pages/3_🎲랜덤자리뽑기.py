@@ -508,7 +508,7 @@ l, r = st.columns([1, 1], gap="large")
 with l:
     render_review_section("2분단", 5, 9, 4, avg_map, tooltip_map)
 with r:
-    render_review_section("1분단(사물함쪽)", 1, 4, avg_map, tooltip_map)
+    render_review_section("1분단(사물함쪽)", 1,4,4, avg_map, tooltip_map)
 
 st.divider()
 
@@ -556,11 +556,11 @@ with right:
         # - 저장 후 rerun으로 즉시 반영
         if st.button("💾 리뷰 저장", width="stretch", key="review_save_by_seat"):
             if not comment.strip():
-                st.warning("한줄평을 입력해주세요")
+                st.warning("한줄평을 입력해줘!")
             else:
                 try:
                     insert_review(sel, rating, comment.strip())
-                    st.success("저장 완료!")
+                    st.success("저장 완료! (리뷰는 누적됩니다)")
                     st.rerun()
                 except Exception as e:
                     st.error("리뷰 저장 실패")
